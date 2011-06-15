@@ -5,7 +5,7 @@ from django.conf import settings
 from nose.tools import eq_
 from pyquery import PyQuery as pq
 
-from input import OPINION_PRAISE, OPINION_ISSUE
+from input import FIREFOX, OPINION_PRAISE, OPINION_ISSUE
 from input.tests import ViewTestCase, enforce_ua
 from input.urlresolvers import reverse
 from feedback.models import Opinion
@@ -33,7 +33,9 @@ class BetaViewTests(ViewTestCase):
 
     @enforce_ua
     def test_release(self):
-        r = self._get_page('4.0')
+        version = (getattr(FIREFOX, 'default_version', None) or
+                    Version(LATEST_BETAS[FIREFOX]).simplified)
+        r = self._get_page(version)
         eq_(r.status_code, 200)
 
     @enforce_ua

@@ -4,6 +4,7 @@ from search import views
 
 
 urlpatterns = patterns('',
-    url(r'^search/?$', views.index, name='search'),
+    url(r'^$', views.index, name='dashboard'),
+    url(r'^$', views.index, name='search'),
     url(r'^search/atom/?$', views.SearchFeed(), name='search.feed'),
 )

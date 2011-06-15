@@ -18,5 +18,5 @@ class RedirectTests(InputTestCase):
                                  301)
 
     def test_search(self):
-        r = self.fxclient.get('/search', follow=True)
+        r = self.fxclient.get('/', follow=True)
         assert r.status_code != 404

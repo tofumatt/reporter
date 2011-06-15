@@ -42,11 +42,12 @@ class TestDashboard(SphinxTestCase):
         pag_link = doc('.pager a.next')
         eq_(len(pag_link), 1)
         assert pag_link.attr('href').endswith(
-            '?product=firefox&version=%s' % (input.FIREFOX.default_version or
+            '?product=firefox&version=%s&page=2' % (
+                getattr(input.FIREFOX, 'default_version', None) or
                 input.LATEST_BETAS[input.FIREFOX]))
 
 
-class TestMobileDashboard(test_utils.TestCase):
+class TestMobileDashboard(SphinxTestCase):
     def test_dashboard(self):
         r = self.client.get(reverse('dashboard'), follow=True,
                             SITE_ID=settings.MOBILE_SITE_ID)
@@ -69,7 +70,7 @@ class TestHelpers(InputTestCase):
         }
 
         # No error, please.
-        tpl = render_template('dashboard/mobile/platforms.html', ctx)
+        tpl = render_template('search/mobile/platforms.html', ctx)
         assert tpl.find('id="platform_None"') >= 0
 
     def test_locale_none(self):
@@ -87,7 +88,7 @@ class TestHelpers(InputTestCase):
         }
 
         # No error, please.
-        tpl = render_template('dashboard/mobile/locales.html', ctx)
+        tpl = render_template('search/mobile/locales.html', ctx)
         assert tpl.find('id="loc_None"') >= 0
 
     def test_manufacturer_block(self):
