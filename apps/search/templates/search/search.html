@@ -2,7 +2,7 @@
 
 {% block body_id %}search{% endblock %}
 
-{% block page_title %}{{ _('Search Results') }}{% endblock %}
+{% block page_title %}{% if dashboard %}{{ _('Latest Feedback') }}{% else %}{{ _('Search Results') }}{% endif %}{% endblock %}
 
 {% block feeds %}
 <link href="{{ search_url(defaults=form.data, feed=True) }}"
@@ -43,10 +43,17 @@
 </div><!--
 
 --><div class="col middle wide">
-  {% include "dashboard/includes/feedback_chart.html" %}
+  {% include "includes/welcome.html" %}
+  {% include "search/includes/feedback_chart.html" %}
 
   <div id="messages" class="block">
-    <h2>{{ _('Search Results') }}</h2>
+    <h2>
+      {% if dashboard %}
+        {{ _('Latest Feedback') }}
+      {% else %}
+        {{ _('Search Results') }}
+      {% endif %}
+    </h2>
 
     <form id="kw-search" method="get" action="{{ url('search') }}">
       {% for key, val in defaults.items() %}

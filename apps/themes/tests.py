@@ -15,8 +15,8 @@ class TestViews(test_utils.TestCase):
         self.client.get('/')
         settings.CLUSTER_SIM_THRESHOLD = 2
 
-        args = dict(product=1, version=FIREFOX.default_version, platform='mac',
-                    locale='en-US')
+        args = dict(product=1, version=FIREFOX.default_version,
+                    platform='mac', locale='en-US')
         for x in xrange(10):
             o = Opinion(description='Skip town. slow down '
                         'Push it to the ' + x * 'east coast ',

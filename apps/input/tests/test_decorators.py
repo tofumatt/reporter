@@ -3,6 +3,8 @@ from django.conf import settings
 from mock import patch
 from test_utils import eq_
 
+from feedback.cron import populate
+from feedback.models import Opinion
 from input import decorators
 from input.tests import ViewTestCase
 from input.urlresolvers import reverse
@@ -28,6 +30,9 @@ class DecoratorTests(ViewTestCase):
     def test_forward_mobile(self, mock):
         fake_mobile_domain = 'mymobiledomain.example.com'
 
+        populate(1)
+        id = Opinion.objects.values_list('id', flat=True)[0]
+
         def side_effect(*args, **kwargs):
             class FakeSite(object):
                 id = settings.MOBILE_SITE_ID
@@ -35,10 +40,11 @@ class DecoratorTests(ViewTestCase):
             return FakeSite()
         mock.side_effect = side_effect
 
-        r = self.mclient.get(reverse('dashboard') + '?foo=bar')
+        r = self.mclient.get(reverse('opinion.detail', args=[id]) +
+                             '?foo=bar')
         eq_(r.status_code, 302)
         eq_(r['Location'], 'http://' + fake_mobile_domain +
-            reverse('dashboard') + '?foo=bar')
+            reverse('opinion.detail', args=[id]) + '?foo=bar')
 
     @patch('django.contrib.sites.models.Site.objects.get')
     def test_mobile_device_detection(self, mock):
@@ -57,7 +63,6 @@ class DecoratorTests(ViewTestCase):
 
         # URLs that should allow Mobile detection
         urls = (
-            reverse('dashboard'),
             reverse('feedback'),
         )
 

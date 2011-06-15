@@ -9,6 +9,7 @@ from nose.tools import eq_
 from pyquery import PyQuery as pq
 
 import input
+from feedback.cron import populate
 from input.tests import InputTestCase
 from input.urlresolvers import reverse
 from search.tests import SphinxTestCase
@@ -26,29 +27,43 @@ def render_template(template, context):
 
 
 class TestDashboard(SphinxTestCase):
+    @classmethod
+    def setup_class(cls):
+        """
+        Populate test data with searchable opinions so the dashboard/search
+        results aren't empty (too few results will cause the tests to fail.
+        """
+        populate(100, 'desktop')
+        super(TestDashboard, cls).setup_class()
+    
     def test_root(self):
         """Ensure our site root always works."""
         r = self.client.get('/', follow=True)
         eq_(r.status_code, 200)
 
     def test_dashboard(self):
-        r = self.client.get(reverse('dashboard'), follow=True)
+        r = self.client.get(reverse('search'), follow=True)
         eq_(r.status_code, 200)
 
     def test_beta_pagination_link(self):
-        r = self.client.get(reverse('dashboard'))
+        """
+        Verify the "next" pagination link appears and directs the user to the
+        next page of search results.
+        """
+        r = self.client.get(reverse('search'))
         doc = pq(r.content)
 
         pag_link = doc('.pager a.next')
         eq_(len(pag_link), 1)
         assert pag_link.attr('href').endswith(
-            '?product=firefox&version=%s' % (input.FIREFOX.default_version or
+            '?product=firefox&version=%s&page=2' % (
+                getattr(input.FIREFOX, 'default_version', None) or
                 input.LATEST_BETAS[input.FIREFOX]))
 
 
-class TestMobileDashboard(test_utils.TestCase):
+class TestMobileDashboard(SphinxTestCase):
     def test_dashboard(self):
-        r = self.client.get(reverse('dashboard'), follow=True,
+        r = self.client.get(reverse('search'), follow=True,
                             SITE_ID=settings.MOBILE_SITE_ID)
         eq_(r.status_code, 200)
 
@@ -69,7 +84,7 @@ class TestHelpers(InputTestCase):
         }
 
         # No error, please.
-        tpl = render_template('dashboard/mobile/platforms.html', ctx)
+        tpl = render_template('search/mobile/platforms.html', ctx)
         assert tpl.find('id="platform_None"') >= 0
 
     def test_locale_none(self):
@@ -87,7 +102,7 @@ class TestHelpers(InputTestCase):
         }
 
         # No error, please.
-        tpl = render_template('dashboard/mobile/locales.html', ctx)
+        tpl = render_template('search/mobile/locales.html', ctx)
         assert tpl.find('id="loc_None"') >= 0
 
     def test_manufacturer_block(self):

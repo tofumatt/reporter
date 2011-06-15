@@ -36,7 +36,6 @@ def unchannel(request):
     return redirect(url, permanent=True)
 
 urlpatterns = patterns('',
-    ('', include('dashboard.urls')),
     ('', include('feedback.urls')),
     ('', include('website_issues.urls')),
     ('', include('search.urls')),

@@ -31,7 +31,7 @@ def _get_results(request, meta=[], client=None):
     if form.is_valid():
         data = form.cleaned_data
         query = data.get('q', '')
-        product = data.get('product') or FIREFOX.short
+        product = data.get('product') or request.default_prod.short
         version = data.get('version')
         search_opts = _get_results_opts(request, data, product, meta)
         c = client or Client()
@@ -41,7 +41,8 @@ def _get_results(request, meta=[], client=None):
         opinions = []
         product = request.default_prod
         query = ''
-        version = Version(LATEST_BETAS[product]).simplified
+        version = (getattr(product, 'default_version', None) or
+                   Version(LATEST_BETAS[product]).simplified)
         metas = {}
 
     product = PRODUCTS.get(product, FIREFOX)
@@ -182,6 +183,15 @@ def get_period(form):
 
 @cache_page(use_get=True)
 def index(request):
+    """
+    Display search results for Opinions on Firefox. Shows breakdown of
+    Praise/Issues/Ideas, sites/themes, and search filters.
+    
+    If no search criteria are explicitly set, the page is considered the
+    "Dashboard" (i.e. the home page of Firefox Input). Otherwise, the title
+    of the page is "Search Results".
+    """
+    
     try:
         meta = ('type', 'locale', 'platform', 'day_sentiment', 'manufacturer',
                 'device')
@@ -197,6 +207,8 @@ def index(request):
     desktop_site = Site.objects.get(id=settings.DESKTOP_SITE_ID)
 
     data = dict(
+        # No form data means we're on the "dashboard".
+        dashboard=(not form.data),
         desktop_url='http://' + desktop_site.domain,
         form=form,
         product=product,

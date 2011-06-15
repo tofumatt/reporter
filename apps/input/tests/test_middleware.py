@@ -61,7 +61,7 @@ class MiddlewareTests(InputTestCase):
         eq_(r['Location'], 'http://testserver/en-US/?foo=bar')
 
     def test_redirect_with_locale(self):
-        r = self.client.get(reverse('dashboard') + '?lang=fr')
+        r = self.client.get(reverse('search') + '?lang=fr')
         eq_(r['Location'], 'http://testserver/fr/')
 
     def test_x_frame_options(self):

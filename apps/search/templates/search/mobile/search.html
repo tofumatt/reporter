@@ -1,5 +1,7 @@
 {% extends "base_mobile.html" %}
 
+{% block page_title %}{% if dashboard %}{{ _('Latest Feedback') }}{% else %}{{ _('Search Results') }}{% endif %}{% endblock %}
+
 {% block header %}
 <div id="search" class="block">
   <form id="kw-search" method="get" action="{{ url('search') }}">

@@ -259,7 +259,6 @@ INSTALLED_APPS = [
     'input',  # comes first so it always takes precedence.
 
     'api',
-    'dashboard',
     'feedback',
     'myadmin',
     'search',

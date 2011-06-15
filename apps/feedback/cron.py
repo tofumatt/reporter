@@ -78,7 +78,7 @@ def populate(num_opinions=None, product='mobile', type=None, locale=None):
 
         o.description = sample()
 
-        if 'mobile':
+        if product == 'mobile':
             manufacturer = random.choice(DEVICES.keys())
             o.manufacturer = manufacturer
             o.device = random.choice(DEVICES[manufacturer])
