@@ -9,8 +9,9 @@ from textcluster import Corpus, search
 
 import input
 from feedback.models import Opinion
-from input import (PLATFORM_USAGE, PRODUCT_USAGE, LATEST_BETAS, LATEST_RELEASE,
-                   OPINION_PRAISE, OPINION_ISSUE, OPINION_IDEA)
+from input import (PLATFORM_USAGE, PRODUCT_USAGE, LATEST_BETAS,
+                    LATEST_RELEASE, OPINION_PRAISE, OPINION_ISSUE,
+                    OPINION_IDEA)
 from themes.models import Theme, Item
 
 SIM_THRESHOLD = settings.CLUSTER_SIM_THRESHOLD
