@@ -29,7 +29,7 @@ $GIT pull -q origin master
 $GIT submodule update --init
 popd > /dev/null
 
-if [ $NEWCODE ]
+if [ -n $NEWCODE ]
 then
         # Run database migrations.
         $PYTHON vendor/src/schematic/schematic migrations/
