@@ -24,12 +24,12 @@ $GIT submodule update --init
 # pull vendor repo
 pushd vendor > /dev/null
 $GIT fetch origin
-NEWCODE=$($GIT diff origin/master)
+NEWCODE=$($GIT log origin/master..master|wc -l)
 $GIT pull -q origin master
 $GIT submodule update --init
 popd > /dev/null
 
-if [ -n "$NEWCODE" ]
+if [ "$NEWCODE" -gt 0 ]
 then
         # Run database migrations.
         $PYTHON vendor/src/schematic/schematic migrations/
