@@ -31,6 +31,9 @@ popd > /dev/null
 
 if [ "$NEWCODE" -gt 0 ]
 then
+        # Restart celery
+        supervisorctl restart celery-input-stage
+
         # Run database migrations.
         $PYTHON vendor/src/schematic/schematic migrations/
         $PYTHON vendor/src/schematic/schematic migrations/sites
