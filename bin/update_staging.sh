@@ -24,7 +24,7 @@ $GIT submodule update --init
 # pull vendor repo
 pushd vendor > /dev/null
 $GIT fetch origin
-NEWCODE=($GIT diff origin/master)
+NEWCODE=$($GIT diff origin/master)
 $GIT pull -q origin master
 $GIT submodule update --init
 popd > /dev/null
