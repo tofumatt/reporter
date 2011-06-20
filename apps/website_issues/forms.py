@@ -12,9 +12,12 @@ from search.forms import SENTIMENT_CHOICES, PLATFORM_CHOICES, PROD_CHOICES
 
 
 VERSION_CHOICES = {
-    FIREFOX: [(v, v) for v in
-              FIREFOX.beta_versions + FIREFOX.release_versions],
-    MOBILE: [(v, v) for v in MOBILE.beta_versions + MOBILE.release_versions],
+    FIREFOX: [(v, v) for v in FIREFOX.extra_versions +
+                              FIREFOX.beta_versions +
+                              FIREFOX.release_versions],
+    MOBILE: [(v, v) for v in MOBILE.extra_versions +
+                             MOBILE.beta_versions +
+                             MOBILE.release_versions],
 }
 
 FieldDef = namedtuple("FieldDef", "default field keys")
@@ -102,7 +105,10 @@ class WebsiteIssuesSearchForm(forms.Form):
                 cleaned['platform'] = FIELD_DEFS['platform'].default
 
         if not cleaned.get('version'):
-            cleaned['version'] = VERSION_CHOICES[FIREFOX][0][0]
+            cleaned['version'] = (
+                getattr(FIREFOX, 'default_version', None) or
+                Version(LATEST_BETAS[FIREFOX]).simplified
+            )
 
         if cleaned.get('page') is not None:
             cleaned['page'] = max(1, int(cleaned['page']))
