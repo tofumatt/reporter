@@ -2,7 +2,7 @@
 
 {% block body_id %}search{% endblock %}
 
-{% block page_title %}{% if dashboard %}{{ _('Latest Feedback') }}{% else %}{{ _('Search Results') }}{% endif %}{% endblock %}
+{% block page_title %}{% if dashboard %}{{ _('Welcome') }}{% else %}{{ _('Search Results') }}{% endif %}{% endblock %}
 
 {% block feeds %}
 <link href="{{ search_url(defaults=form.data, feed=True) }}"
@@ -43,7 +43,9 @@
 </div><!--
 
 --><div class="col middle wide">
-  {% include "includes/welcome.html" %}
+  {% if not seen_welcome %}
+    {% include "includes/welcome.html" %}
+  {% endif %}
   {% include "search/includes/feedback_chart.html" %}
 
   <div id="messages" class="block">

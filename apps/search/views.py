@@ -217,6 +217,13 @@ def index(request):
         versions=VERSION_CHOICES[product],
     )
 
+    # Check to see if this is the user's first visit to a search page
+    # (usually the dashboard/home page). We'll show them a welcome
+    # message if they don't have a "seen_welcome" flag in their session.
+    data['seen_welcome'] = request.session.get('seen_welcome', False)
+    if not data['seen_welcome']:
+        request.session['seen_welcome'] = True
+
     data['period'], days = get_period(form)
 
     if results:
