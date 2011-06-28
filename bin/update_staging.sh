@@ -45,5 +45,5 @@ then
 fi
 
 # Fix mobile and desktop site domains in database. Bug 608581.
-$PYTHON ./manage.py cron set_domains input.stage.mozilla.com m.input.stage.mozilla.com
+$PYTHON ./manage.py cron set_domains input.allizom.org m.input.allizom.org
 popd > /dev/null
