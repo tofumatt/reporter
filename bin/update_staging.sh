@@ -29,8 +29,8 @@ $GIT pull -q origin master
 $GIT submodule update --init
 popd > /dev/null
 
-if [ "$NEWCODE" -gt 0 ]
-then
+#if [ "$NEWCODE" -gt 0 ]
+#then
         # Restart celery
         supervisorctl restart celery-input-stage
 
@@ -42,7 +42,7 @@ then
         $PYTHON manage.py cron get_highcharts
         # Minify assets.
         $PYTHON manage.py compress_assets
-fi
+#fi
 
 # Fix mobile and desktop site domains in database. Bug 608581.
 $PYTHON ./manage.py cron set_domains input.allizom.org m.input.allizom.org
