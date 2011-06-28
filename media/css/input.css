@@ -659,13 +659,13 @@ background-color: #B6BCC0;
     padding: 15px 0 10px 0;
 }
 .pager .next {
-    float: right;
+    float: left;
 }
 .html-rtl .pager .next {
     float: left;
 }
 .pager .prev {
-    float: left;
+    float: right;
 }
 .html-rtl .pager .prev {
     float: none;
