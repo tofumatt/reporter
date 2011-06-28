@@ -15,7 +15,7 @@ from tower import ugettext as _, ugettext_lazy as _lazy
 
 from input import (PRODUCTS, PRODUCT_IDS, FIREFOX, LATEST_BETAS,
                    OPINION_PRAISE, OPINION_ISSUE, OPINION_IDEA, OPINION_TYPES)
-from input.decorators import cache_page
+from input.decorators import cache_page, forward_mobile
 from input.urlresolvers import reverse
 from search.client import Client, SearchError
 from search.forms import ReporterSearchForm, PROD_CHOICES, VERSION_CHOICES
@@ -180,7 +180,7 @@ def get_period(form):
 
     return 'custom', days
 
-
+@forward_mobile
 @cache_page(use_get=True)
 def index(request):
     """
