@@ -90,8 +90,8 @@ def forward_mobile(f):
             MOBILE_DEVICE_PATTERN.search(
                 request.META.get('HTTP_USER_AGENT', ''))):
             mobile_site = Site.objects.get(id=settings.MOBILE_SITE_ID)
-            target = '%s://%s%s' % ('https' if request.is_secure() else 'http',
-                                    mobile_site.domain, request.path)
+            target = '%s://%s%s' % (('https' if request.is_secure() else
+                                    'http'), mobile_site.domain, request.path)
             if request.GET:
                 target = '%s?%s' % (target, urllib.urlencode(request.GET))
 
