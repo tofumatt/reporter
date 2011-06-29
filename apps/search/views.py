@@ -247,7 +247,7 @@ def index(request):
             chart_data = dict(series=[
                 dict(name=_('Praise'), data=daily['praise']),
                 dict(name=_('Issues'), data=daily['issue']),
-                dict(name=_('Idea'), data=daily['idea']),
+                dict(name=_('Ideas'), data=daily['idea']),
                 ]
             ) if daily else None
             data['chart_data_json'] = json.dumps(chart_data)
