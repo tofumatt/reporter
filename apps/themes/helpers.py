@@ -23,7 +23,7 @@ def new_context(context, **kw):
 
 @register.inclusion_tag('themes/theme_list.html')
 @jinja2.contextfunction
-def theme_list(context, themes):
+def theme_list(context, themes, show_notfound = False):
     """A list of messages."""
     return new_context(**locals())
 
