@@ -2,6 +2,7 @@
 
 set -e
 
+SVN="/usr/bin/svn"
 INPUT_DIR="/data/input/python/input.mozilla.com/reporter"
 VENDOR_DIR="$INPUT_DIR/vendor"
 
