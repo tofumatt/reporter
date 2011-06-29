@@ -33,7 +33,7 @@
 <div class="col middle wide">
   <div id="messages" class="block">
     <h2>{{ _('Common Themes') }}</h2>
-    {{ theme_list(themes) }}
+    {{ theme_list(themes, show_notfound=True) }}
 
     {{ pager() }}
   </div>
