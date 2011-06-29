@@ -623,6 +623,7 @@ background-color: #B6BCC0;
 .choice li a {
     display: inline-block;
     margin-left: .5em;
+    margin-bottom: .5em;
     background: #f0f0f0;
     color: inherit;
     text-decoration: none;
