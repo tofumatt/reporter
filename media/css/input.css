@@ -676,16 +676,14 @@ background-color: #B6BCC0;
 .selectbox {
     position: relative;
     display: inline-block;
-    margin-left: .5em;
+    margin-right: .5em;
+    margin-bottom: .5em;
     background: #f0f0f0;
     color: inherit;
     text-decoration: none;
     line-height: 18px;
     padding: 0 .5em;
     -moz-border-radius: 3px;
-}
-.selectbox:first-child {
-    margin-left: 0;
 }
 .selectbox:hover {
     cursor: pointer;
