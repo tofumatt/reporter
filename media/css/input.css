@@ -855,6 +855,9 @@ background-color: #B6BCC0;
     border-bottom: 1px dotted #b6bcc0;
     margin-bottom: 0;
 }
+#messages h2 {
+    width: 66%;
+}
 #messages .exit,
 #themes .exit,
 #sites .exit {
