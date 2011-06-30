@@ -2,17 +2,17 @@
 <div class="pager">
   {% with link_txt = _('&laquo; Older Messages')|safe %}
     {% if next_url %}
-    <a href="{{ next_url }}" class="next">{{ link_txt }}</a>
+    <a href="{{ next_url }}" class="newer">{{ link_txt }}</a>
     {% else %}
-    <span class="next inactive">{{ link_txt }}</span>
+    <span class="newer inactive">{{ link_txt }}</span>
     {% endif %}
   {% endwith %}
 
   {% with link_txt = _('Newer Messages &raquo;')|safe %}
     {% if prev_url %}
-    <a href="{{ prev_url }}" class="prev">{{ link_txt }}</a>
+    <a href="{{ prev_url }}" class="older">{{ link_txt }}</a>
     {% else %}
-    <span class="prev inactive">{{ link_txt }}</span>
+    <span class="older inactive">{{ link_txt }}</span>
     {% endif %}
   {% endwith %}
 </div>

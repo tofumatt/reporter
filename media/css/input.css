@@ -656,16 +656,16 @@ background-color: #B6BCC0;
     border-top: 1px dotted #b6bcc0;
     padding: 15px 0 10px 0;
 }
-.pager .next {
+.pager .newer {
     float: left;
 }
-.html-rtl .pager .next {
+.html-rtl .pager .newer {
     float: left;
 }
-.pager .prev {
+.pager .older {
     float: right;
 }
-.html-rtl .pager .prev {
+.html-rtl .pager .older {
     float: none;
 }
 .pager .inactive {
