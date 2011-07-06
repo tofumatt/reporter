@@ -16,3 +16,4 @@ media/data/*tsv.bz2
 media/js/libs/highcharts.src.js
 .#*
 locale
+docs/_build
