@@ -35,7 +35,7 @@ class TestDashboard(SphinxTestCase):
         """
         populate(100, 'desktop')
         super(TestDashboard, cls).setup_class()
-    
+
     def test_root(self):
         """Ensure our site root always works."""
         r = self.client.get('/', follow=True)
@@ -53,7 +53,7 @@ class TestDashboard(SphinxTestCase):
         r = self.client.get(reverse('search'))
         doc = pq(r.content)
 
-        pag_link = doc('.pager a.next')
+        pag_link = doc('.pager a.newer')
         eq_(len(pag_link), 1)
         assert pag_link.attr('href').endswith(
             '?product=firefox&version=%s&page=2' % (

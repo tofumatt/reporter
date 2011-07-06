@@ -36,8 +36,8 @@ class HelperTests(InputTestCase):
         request = self.factory.get('/')
         t = render('{{ pager() }}', dict(request=request, page=page))
         doc = pq(t)
-        assert doc('a.next')
-        assert doc('a.prev')
+        assert doc('a.older')
+        assert doc('a.newer')
 
     def test_urlparams_unicode(self):
         """Make sure urlparams handles unicode well."""
