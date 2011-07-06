@@ -20,7 +20,7 @@ fi
 
 if [ ! -d "$VENV/vendor" ]; then
     echo "No /vendor... crap."
-    git clone git://github.com/fwenzel/reporter-lib vendor
+    git clone git://github.com/mozilla/input-lib vendor
 fi
 
 pushd vendor && git pull && git submodule update --init && popd
