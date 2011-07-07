@@ -18,7 +18,7 @@ if [ ! -d "$VENV/bin" ]; then
   virtualenv $VENV
 fi
 
-if [ ! -d "$VENV/vendor" ]; then
+if [ ! -d "$WORKSPACE/vendor" ]; then
     echo "No /vendor... crap."
     git clone git://github.com/mozilla/input-lib vendor
 fi
