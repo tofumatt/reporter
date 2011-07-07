@@ -9,7 +9,7 @@
 
 {% macro button(form, name, value='', label='', title='', classes='') %}
   {% set sel = (form.cleaned_data[name] == value) %}
-  <a class="{{ 'selected' if sel else ''}} {{ classes }}"
+  <a class="{{ 'selected' if sel else ''}}{{ ' ' + classes if classes }}"
      href="{{ base_url|urlparams(**{name: value, 'page': None}) }}">{{ label }}</a>
 {% endmacro %}
 
