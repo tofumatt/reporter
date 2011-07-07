@@ -18,11 +18,11 @@ PROD_CHOICES = (
 )
 
 VERSION_CHOICES = {
-    FIREFOX: ([('--', _lazy('-- all --', 'version_choice'))] +
+    FIREFOX: ([('--', _lazy(u'-- all --', 'version_choice'))] +
               [(v, v) for v in (FIREFOX.extra_versions +
                                 FIREFOX.release_versions +
                                 FIREFOX.beta_versions)]),
-    MOBILE: ([('--', _lazy('-- all --', 'version_choice'))] +
+    MOBILE: ([('--', _lazy(u'-- all --', 'version_choice'))] +
              [(v, v) for v in (MOBILE.extra_versions +
                                MOBILE.release_versions +
                                MOBILE.beta_versions)]),

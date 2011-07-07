@@ -178,7 +178,8 @@ def products_block(context, products, product):
 @register.inclusion_tag('search/versions.html')
 @jinja2.contextfunction
 def versions_block(context, versions, version):
-    return new_context(**locals())
+    data=dict(version=version, versions=versions)
+    return new_context(data)
 
 
 @register.function

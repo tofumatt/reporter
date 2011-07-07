@@ -60,7 +60,7 @@ class PaginationTest(SphinxTestCase):
 
     def test_next_page(self):
         r = search_request()
-        assert pq(r.content)('.pager a.next')
+        assert pq(r.content)('.pager a.newer')
 
     def test_no_next_page(self):
         """Once we're on page 50, let's not show an older messages link."""

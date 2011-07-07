@@ -186,12 +186,12 @@ def index(request):
     """
     Display search results for Opinions on Firefox. Shows breakdown of
     Praise/Issues/Ideas, sites/themes, and search filters.
-    
+
     If no search criteria are explicitly set, the page is considered the
     "Dashboard" (i.e. the home page of Firefox Input). Otherwise, the title
     of the page is "Search Results".
     """
-    
+
     try:
         meta = ('type', 'locale', 'platform', 'day_sentiment', 'manufacturer',
                 'device')
