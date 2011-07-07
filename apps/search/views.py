@@ -34,11 +34,13 @@ def _get_results(request, meta=[], client=None):
         product = data.get('product') or request.default_prod.short
         version = data.get('version')
         search_opts = _get_results_opts(request, data, product, meta)
+        type_filter = search_opts['type'] if 'type' in search_opts else None
         c = client or Client()
         opinions = c.query(query, **search_opts)
         metas = c.meta
     else:
         opinions = []
+        type_filter = None
         product = request.default_prod
         query = ''
         version = (getattr(product, 'default_version', None) or
@@ -47,7 +49,7 @@ def _get_results(request, meta=[], client=None):
 
     product = PRODUCTS.get(product, FIREFOX)
 
-    return (opinions, form, product, version, metas)
+    return (opinions, form, product, version, metas, type_filter)
 
 
 def _get_results_opts(request, data, product, meta=[]):
@@ -195,7 +197,7 @@ def index(request):
     try:
         meta = ('type', 'locale', 'platform', 'day_sentiment', 'manufacturer',
                 'device')
-        (results, form, product, version, metas) = _get_results(
+        (results, form, product, version, metas, type_filter) = _get_results(
                 request, meta=meta)
     except SearchError, e:
         return jingo.render(request, 'search/unavailable.html',
@@ -244,12 +246,17 @@ def index(request):
                             device=metas.get('device'))
         if days >= 7 or data['period'] == 'infin':
             daily = metas.get('day_sentiment', {})
-            chart_data = dict(series=[
-                dict(name=_('Praise'), data=daily['praise']),
-                dict(name=_('Issues'), data=daily['issue']),
-                dict(name=_('Ideas'), data=daily['idea']),
-                ]
-            ) if daily else None
+            if type_filter:
+                opinion = OPINION_TYPES[type_filter]
+                chart_data = dict(series=[dict(name=unicode(opinion.pretty),
+                        data=daily[opinion.short])])
+            else:
+                chart_data = dict(series=[
+                    dict(name=_('Praise'), data=daily['praise']),
+                    dict(name=_('Issues'), data=daily['issue']),
+                    dict(name=_('Ideas'), data=daily['idea']),
+                    ]
+                ) if daily else None
             data['chart_data_json'] = json.dumps(chart_data)
     else:
         data.update({
