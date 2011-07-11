@@ -279,6 +279,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+
+    # For tests
+    'django_nose',
 ]
 
 # Where to store product details
